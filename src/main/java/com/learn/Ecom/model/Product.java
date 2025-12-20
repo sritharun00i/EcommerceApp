@@ -1,9 +1,6 @@
 package com.learn.Ecom.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Generated;
@@ -26,7 +23,14 @@ public class Product {
     private String description;
     private BigDecimal price;
     private String category;
-    private Date release_date;
-    private boolean available;
-    private int quantity;
+    @Column(name = "stock_quantity")
+    private Integer stockQuantity;
+    @Column(name = "release_date")
+    private Date releaseDate;
+    @Column(name = "product_available")
+    private Boolean productAvailable;
+    private String imageName;
+    private String imageType;
+    @Lob
+    private byte[] imageData;
 }
