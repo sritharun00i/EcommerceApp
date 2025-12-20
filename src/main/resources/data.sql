@@ -1,5 +1,5 @@
 INSERT INTO product
-(name, brand, description, price, category, release_date, available, quantity)
+(name, brand, description, price, category, release_date, Product_available, stock_quantity)
 VALUES
     ('Swift', 'Maruti Suzuki',
      'Popular hatchback known for mileage and reliability',
