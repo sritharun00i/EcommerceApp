@@ -1,3 +1,16 @@
+-- Create table if it does not exist (safe for H2 / development)
+CREATE TABLE IF NOT EXISTS product (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255),
+  brand VARCHAR(255),
+  description VARCHAR(1000),
+  price DECIMAL(15,2),
+  category VARCHAR(100),
+  release_date DATE,
+  Product_available BOOLEAN,
+  stock_quantity INT
+);
+
 -- Cars
 INSERT INTO product
 (name, brand, description, price, category, release_date, Product_available, stock_quantity)
@@ -59,6 +72,7 @@ VALUES
     ('QuietComfort 45', 'Bose', 'Premium noise cancelling headphones', 28999.00, 'Headphone', '2021-09-23', TRUE, 22),
     ('AirPods Pro', 'Apple', 'Wireless earbuds with ANC', 24999.00, 'Headphone', '2021-10-18', TRUE, 35),
     ('Boat Rockerz 550', 'Boat', 'Affordable wireless headphones', 1999.00, 'Headphone', '2020-06-15', TRUE, 50);
+
 -- Mobiles
 INSERT INTO product
 (name, brand, description, price, category, release_date, Product_available, stock_quantity)
@@ -67,6 +81,7 @@ VALUES
     ('Galaxy S23', 'Samsung', 'Flagship Android smartphone', 74999.00, 'Mobile', '2023-02-17', TRUE, 20),
     ('Pixel 7', 'Google', 'Clean Android experience with great camera', 59999.00, 'Mobile', '2022-10-13', TRUE, 18),
     ('Redmi Note 12', 'Xiaomi', 'Budget smartphone with AMOLED display', 15999.00, 'Mobile', '2023-01-11', TRUE, 40);
+
 -- Electronics
 INSERT INTO product
 (name, brand, description, price, category, release_date, Product_available, stock_quantity)
@@ -75,6 +90,7 @@ VALUES
     ('Microwave Oven', 'LG', 'Convection microwave oven', 21999.00, 'Electronics', '2020-11-05', TRUE, 10),
     ('Air Conditioner 1.5T', 'Daikin', 'Energy efficient split AC', 45999.00, 'Electronics', '2022-04-01', TRUE, 8),
     ('Refrigerator 260L', 'Whirlpool', 'Frost-free double door fridge', 28999.00, 'Electronics', '2021-02-14', TRUE, 14);
+
 -- Toys
 INSERT INTO product
 (name, brand, description, price, category, release_date, Product_available, stock_quantity)
@@ -83,6 +99,7 @@ VALUES
     ('Remote Control Car', 'Hot Wheels', 'High-speed RC racing car', 1999.00, 'Toys', '2020-12-05', TRUE, 35),
     ('Barbie Dreamhouse', 'Mattel', 'Large doll house playset', 4999.00, 'Toys', '2021-06-18', TRUE, 15),
     ('Puzzle Set 1000 pcs', 'Ravensburger', 'Challenging jigsaw puzzle', 1499.00, 'Toys', '2018-09-01', TRUE, 25);
+
 -- Fashion
 INSERT INTO product
 (name, brand, description, price, category, release_date, Product_available, stock_quantity)
@@ -92,3 +109,13 @@ VALUES
     ('Running Shoes', 'Nike', 'Lightweight sports shoes', 5999.00, 'Fashion', '2022-01-05', TRUE, 30),
     ('Leather Wallet', 'Fossil', 'Genuine leather wallet', 3499.00, 'Fashion', '2020-11-22', TRUE, 25);
 
+CREATE TABLE IF NOT EXISTS users (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL
+);
+
+INSERT INTO users (email, password, name) VALUES
+('user@example.com', '$2a$10$slYQmyNdGzin7olVN3p5Be7DlH.PKZbv5H8KnzzVgXXbVxzy2QOXG', 'John Doe');
+-- password is 'password' encrypted with BCrypt

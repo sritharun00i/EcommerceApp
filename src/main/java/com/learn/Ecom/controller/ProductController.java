@@ -4,17 +4,13 @@ import com.learn.Ecom.model.Product;
 import com.learn.Ecom.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.server.DelegatingServerHttpResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
 @CrossOrigin
@@ -64,7 +60,7 @@ public class ProductController {
     @PutMapping("product/{id}")
     public ResponseEntity<String> updateProduct(@PathVariable int id, @RequestPart Product product,
                                                 @RequestPart MultipartFile imageFile){
-        Product product1 = null;
+        Product product1;
         try {
             product1 = service.updateProduct(id, product, imageFile);
         } catch (IOException e) {
