@@ -8,26 +8,30 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "users")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
-
-    private String name;
 
     @Column(nullable = false)
     private String password;
 
-    private String role; // optional
+    @Column(nullable = false)
+    private String name;
+
+    private String role;
 
     public User safeCopy() {
-        return new User(id, email, name, null, role);
+        User user = new User();
+        user.setId(this.id);
+        user.setEmail(this.email);
+        user.setName(this.name);
+        user.setRole(this.role);
+        return user;
     }
 }
-
