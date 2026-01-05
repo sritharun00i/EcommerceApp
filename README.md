@@ -10,7 +10,7 @@ A robust **RESTful API** for an E-commerce platform, engineered with **Spring Bo
 * **Full CRUD Operations**: Create, Read, Update, and Delete products seamlessly.
 * **Dynamic Filtering**: Specialized endpoints for category-based product listings (Mobiles, Laptops, Fashion, etc.).
 * **Local Image Storage**: Built-in logic to serve product images directly from Spring Boot static resources.
-* **Instant Setup**: Uses an **H2 In-Memory Database**—no complex database installation required.
+* **Instant Setup**: Uses an **MySQL **.
 * **Auto-Seeding**: Preloads comprehensive sample data via `data.sql` upon startup.
 * **Layered Architecture**: Follows industry standards with distinct Controller, Service, and Repository layers.
 
@@ -23,7 +23,7 @@ A robust **RESTful API** for an E-commerce platform, engineered with **Spring Bo
 | **Language** | Java 17+ |
 | **Framework** | Spring Boot 3.x |
 | **ORM** | Spring Data JPA / Hibernate |
-| **Database** | H2 (In-Memory) |
+| **Database** | MySQL |
 | **Build Tool** | Maven |
 | **Utility** | Lombok |
 
@@ -35,7 +35,7 @@ The project follows a clean, layered architecture to ensure maintainability and 
 
 * **Controller Layer**: Handles HTTP requests and maps them to API endpoints.
 * **Service Layer**: Contains the core business logic.
-* **Repository Layer**: Interacts with the H2 database using JPA.
+* **Repository Layer**: Interacts with the MySQL database using JPA.
 * **Model Layer**: Defines the data entities (Product, Category).
 
 ---
@@ -44,10 +44,10 @@ The project follows a clean, layered architecture to ensure maintainability and 
 
 The application is pre-configured for a **zero-setup experience**:
 
-* **Database**: H2 In-Memory.
+* **Database**: MySQL
 * **Initialization**: The schema is automatically created on startup.
 * **Data Seeding**: `src/main/resources/data.sql` automatically populates the database with categories like Electronics, Toys, and Cars.
-* **H2 Console**: Access the database UI at `/h2-console` to run manual queries during development.
+* **MySQL Console**: Access the database UI at `/MySQL-console` to run manual queries during development.
 
 ---
 
