@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "order_items", indexes = {
-    @Index(name = "idx_order_items_order_id", columnList = "order_id"),
-    @Index(name = "idx_order_items_product_id", columnList = "product_id")
+        @Index(name = "idx_order_items_order_id", columnList = "order_id"),
+        @Index(name = "idx_order_items_product_id", columnList = "product_id")
 })
 @Data
 @AllArgsConstructor
@@ -25,9 +25,8 @@ public class OrderItem {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    @Column(name = "product_id", nullable = false)
+    private Integer productId;
 
     @Column(name = "product_name_snapshot", nullable = false, length = 255)
     private String productNameSnapshot;
@@ -49,4 +48,3 @@ public class OrderItem {
         }
     }
 }
-

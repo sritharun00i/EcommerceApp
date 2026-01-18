@@ -11,10 +11,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders", indexes = {
-    @Index(name = "idx_orders_user_id", columnList = "user_id"),
-    @Index(name = "idx_orders_status", columnList = "order_status"),
-    @Index(name = "idx_orders_created_at", columnList = "created_at"),
-    @Index(name = "idx_orders_user_created", columnList = "user_id,created_at")
+        @Index(name = "idx_orders_user_id", columnList = "user_id"),
+        @Index(name = "idx_orders_status", columnList = "order_status"),
+        @Index(name = "idx_orders_created_at", columnList = "created_at"),
+        @Index(name = "idx_orders_user_created", columnList = "user_id,created_at")
 })
 @Data
 @AllArgsConstructor
@@ -25,9 +25,8 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @Column(name = "order_status", nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
@@ -69,4 +68,3 @@ public class Order {
         CANCELLED
     }
 }
-
