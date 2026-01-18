@@ -1,8 +1,8 @@
-package com.learn.Ecom.controller;
+package com.learn.userservice.controller;
 
-import com.learn.Ecom.model.User;
-import com.learn.Ecom.repo.UserRepository;
-import com.learn.Ecom.security.JwtUtil;
+import com.learn.userservice.model.User;
+import com.learn.userservice.repo.UserRepository;
+import com.learn.userservice.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,13 +30,13 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
-        
+
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             // Secure password check using BCrypt
             if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
                 String token = jwtUtil.generateToken(user.getEmail());
-                
+
                 Map<String, Object> response = new HashMap<>();
                 response.put("success", true);
                 response.put("message", "Login successful");
@@ -45,11 +45,11 @@ public class AuthController {
                 return ResponseEntity.ok(response);
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("success", false, "message", "Invalid password"));
+                        .body(Map.of("success", false, "message", "Invalid password"));
             }
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("success", false, "message", "User not found"));
+                    .body(Map.of("success", false, "message", "User not found"));
         }
     }
 
@@ -58,7 +58,7 @@ public class AuthController {
         // Check if user already exists
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(Map.of("success", false, "message", "Email already exists"));
+                    .body(Map.of("success", false, "message", "Email already exists"));
         }
 
         // Create new user
@@ -77,15 +77,37 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    // Add endpoint for validating tokens coming from other services
+    @GetMapping("/validate")
+    public ResponseEntity<?> validateToken(@RequestParam("token") String token) {
+        try {
+            String username = jwtUtil.extractUsername(token);
+            return ResponseEntity.ok(Map.of("valid", true, "username", username));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("valid", false));
+        }
+    }
+
     // DTOs
     public static class LoginRequest {
         private String email;
         private String password;
 
-        public String getEmail() { return email; }
-        public void setEmail(String email) { this.email = email; }
-        public String getPassword() { return password; }
-        public void setPassword(String password) { this.password = password; }
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
     }
 
     public static class RegisterRequest {
@@ -93,11 +115,28 @@ public class AuthController {
         private String password;
         private String name;
 
-        public String getEmail() { return email; }
-        public void setEmail(String email) { this.email = email; }
-        public String getPassword() { return password; }
-        public void setPassword(String password) { this.password = password; }
-        public String getName() { return name; }
-        public void setName(String name) { this.name = name; }
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 }

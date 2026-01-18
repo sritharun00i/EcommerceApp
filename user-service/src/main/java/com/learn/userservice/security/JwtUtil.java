@@ -1,4 +1,4 @@
-package com.learn.Ecom.security;
+package com.learn.userservice.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -17,7 +17,11 @@ import java.util.function.Function;
 public class JwtUtil {
 
     // In production, store this in application.properties
-    private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    // Using simple hardcoded key for demo/migration simplicity (same as original)
+    // NOTE: This key must match the one used in other services if they verify
+    // tokens locally
+    public static final String SECRET_STRING = "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
+    private static final Key SECRET_KEY = Keys.hmacShaKeyFor(io.jsonwebtoken.io.Decoders.BASE64.decode(SECRET_STRING));
     private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 10; // 10 hours
 
     public String extractUsername(String token) {
@@ -47,10 +51,6 @@ public class JwtUtil {
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
-    }
-
-    public Boolean validateToken(String token) {
-        return !isTokenExpired(token);
     }
 
     private Boolean isTokenExpired(String token) {

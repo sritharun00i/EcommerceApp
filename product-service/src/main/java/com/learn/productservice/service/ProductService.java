@@ -1,10 +1,11 @@
-package com.learn.Ecom.service;
+package com.learn.productservice.service;
 
-import com.learn.Ecom.model.Product;
-import com.learn.Ecom.repo.ProductRepository;
+import com.learn.productservice.model.Product;
+import com.learn.productservice.repo.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,7 +15,7 @@ public class ProductService {
     @Autowired
     private ProductRepository repo;
 
-    public List<Product> getAllProducts(){
+    public List<Product> getAllProducts() {
         return repo.findAll();
     }
 
@@ -30,10 +31,10 @@ public class ProductService {
     }
 
     public Product updateProduct(int id, Product product, MultipartFile imageFile) throws IOException {
-         product.setImageData(imageFile.getBytes());
-         product.setImageName(imageFile.getOriginalFilename());
-         product.setImageType(imageFile.getContentType());
-         return repo.save(product);
+        product.setImageData(imageFile.getBytes());
+        product.setImageName(imageFile.getOriginalFilename());
+        product.setImageType(imageFile.getContentType());
+        return repo.save(product);
     }
 
     public void deleteProduct(int id) {
@@ -42,5 +43,18 @@ public class ProductService {
 
     public List<Product> searchProducts(String keyword) {
         return repo.searchProducts(keyword);
+    }
+
+    @Transactional
+    public void reduceStock(int id, int quantity) {
+        Product product = getProductById(id);
+        if (product == null) {
+            throw new RuntimeException("Product not found");
+        }
+        if (product.getStockQuantity() < quantity) {
+            throw new RuntimeException("Insufficient stock for product: " + product.getName());
+        }
+        product.setStockQuantity(product.getStockQuantity() - quantity);
+        repo.save(product);
     }
 }

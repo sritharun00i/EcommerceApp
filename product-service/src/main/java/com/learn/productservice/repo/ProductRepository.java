@@ -1,6 +1,6 @@
-package com.learn.Ecom.repo;
+package com.learn.productservice.repo;
 
-import com.learn.Ecom.model.Product;
+import com.learn.productservice.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

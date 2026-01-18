@@ -1,4 +1,4 @@
-package com.learn.Ecom.model;
+package com.learn.userservice.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
