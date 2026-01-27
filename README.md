@@ -91,11 +91,5 @@ The server will start on `http://localhost:8080`.
 | `PUT` | `/api/products/{id}` | Update product details |
 | `DELETE` | `/api/products/{id}` | Remove a product |
 
----
-
-##  Image Handling
-
-Images are stored in `src/main/resources/static/images/`. To view an image, use the path:
-`http://localhost:8080/images/product-name.jpg`
 
 ---
